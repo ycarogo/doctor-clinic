@@ -18,10 +18,10 @@ import { getDashboard } from "@/data/get-dashboard";
 import { auth } from "@/lib/auth";
 
 import { appointmentsTableColumns } from "../appointments/_components/table-columns";
-// import AppointmentsChart from "./_components/appointments-chart";
+import AppointmentsChart from "./_components/appointments-chart";
 import { DatePicker } from "./_components/date-picker";
 import StatsCards from "./_components/stats-cards";
-// import TopDoctors from "./_components/top-doctors";
+import TopDoctors from "./_components/top-doctors";
 // import TopSpecialties from "./_components/top-specialties";
 
 interface DashboardPageProps {
@@ -55,10 +55,10 @@ const DashboardPage = async ({ searchParams }: DashboardPageProps) => {
     totalAppointments,
     totalPatients,
     totalDoctors,
-    // topDoctors,
+    topDoctors,
     // topSpecialties,
     todayAppointments,
-    // dailyAppointmentsData,
+    dailyAppointmentsData,
   } = await getDashboard({
     from,
     to,
@@ -92,8 +92,8 @@ const DashboardPage = async ({ searchParams }: DashboardPageProps) => {
           totalDoctors={totalDoctors.total}
         />
         <div className="grid grid-cols-[2.25fr_1fr] gap-4">
-          {/* <AppointmentsChart dailyAppointmentsData={dailyAppointmentsData} />
-          <TopDoctors doctors={topDoctors} /> */}
+          <AppointmentsChart dailyAppointmentsData={dailyAppointmentsData} />
+          <TopDoctors doctors={topDoctors} />
         </div>
         <div className="grid grid-cols-[2.25fr_1fr] gap-4">
           <Card>
