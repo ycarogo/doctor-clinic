@@ -28,23 +28,38 @@ export const POST = async (request: Request) => {
       if (!event.data.object.id) {
         throw new Error("Subscription ID not found");
       }
-      const { subscription, subscription_details, customer } = event.data
-        .object as unknown as {
-        customer: string;
-        subscription: string;
-        subscription_details: {
-          metadata: {
-            userId: string;
+
+      const {
+        object: {
+          customer,
+          parent: {
+            subscription_details: {
+              subscription,
+              metadata: { userId },
+            },
+          },
+        },
+      } = event.data as unknown as {
+        object: {
+          customer: string;
+          parent: {
+            subscription_details: {
+              subscription: string;
+              metadata: {
+                userId: string;
+              };
+            };
           };
         };
       };
+
       if (!subscription) {
         throw new Error("Subscription not found");
       }
-      const userId = subscription_details.metadata.userId;
       if (!userId) {
         throw new Error("User ID not found");
       }
+
       await db
         .update(usersTable)
         .set({
